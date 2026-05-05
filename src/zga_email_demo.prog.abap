@@ -132,6 +132,15 @@ SELECTION-SCREEN BEGIN OF BLOCK b6 WITH FRAME TITLE TEXT-b06.
               p_t6_pop TYPE abap_bool AS CHECKBOX DEFAULT 'X' MODIF ID tg6.
 SELECTION-SCREEN END OF BLOCK b6.
 
+" --- Test 7 Parameters ---
+SELECTION-SCREEN BEGIN OF BLOCK b7 WITH FRAME TITLE TEXT-b07.
+  PARAMETERS: p_test7 TYPE abap_bool AS CHECKBOX DEFAULT space USER-COMMAND t7.
+  PARAMETERS: p_t7_sub TYPE char100 DEFAULT 'HTML Example Subject' LOWER CASE MODIF ID tg7,
+              p_t7_rec TYPE ad_smtpadr DEFAULT 'ignacio.diez@antolin.com' LOWER CASE MODIF ID tg7,
+              p_t7_pop TYPE abap_bool AS CHECKBOX DEFAULT 'X' MODIF ID tg7.
+SELECTION-SCREEN END OF BLOCK b7.
+
+
 " ==============================================================================
 " 4.5 SELECTION SCREEN EVENTS
 " ==============================================================================
@@ -187,6 +196,15 @@ AT SELECTION-SCREEN OUTPUT.
       ENDIF.
       MODIFY SCREEN.
     ENDIF.
+    " Dynamic visibility for Test 6
+    IF screen-group1 = 'TG7'.
+      IF p_test7 = abap_true.
+        screen-active = 1.
+      ELSE.
+        screen-active = 0.
+      ENDIF.
+      MODIFY SCREEN.
+    ENDIF.
   ENDLOOP.
 
 
@@ -219,6 +237,9 @@ START-OF-SELECTION.
 
   IF p_test6 = abap_true.
     PERFORM test_6_function_module.
+  ENDIF.
+  IF p_test7 = abap_true.
+    PERFORM test_7_html_body.
   ENDIF.
 
 
@@ -374,6 +395,54 @@ FORM test_6_function_module.
       e_ok       = lv_ok.
 
   FREE lo_fm_email.
+ENDFORM.
+*&---------------------------------------------------------------------*
+*& Form test_7_html_body
+*&---------------------------------------------------------------------*
+FORM test_7_html_body.
+  DATA lo_email TYPE REF TO zcl_ga_email.
+  DATA lv_html_body TYPE string.
+
+  " 1. Construct your HTML string
+  lv_html_body = |<html>| &
+                 |<head>| &
+                 |<style>| &
+                 |  body \{ font-family: Arial, sans-serif; color: #333; \}| &
+                 |  .highlight \{ color: #0056b3; font-weight: bold; \}| &
+                 |</style>| &
+                 |</head>| &
+                 |<body>| &
+                 |  <h2>Automated System Notification</h2>| &
+                 |  <p>Hello,</p>| &
+                 |  <p>This is an example of an <span class="highlight">HTML formatted email</span> sent via ZCL_GA_EMAIL.</p>| &
+                 |  <ul>| &
+                 |    <li>Supports CSS styling</li>| &
+                 |    <li>Supports structured lists</li>| &
+                 |    <li>Can embed tables and links</li>| &
+                 |  </ul>| &
+                 |  <p>Best regards,<br><b>ABAP Development Team</b></p>| &
+                 |</body>| &
+                 |</html>|.
+
+  " 2. Instantiate Base Class
+  lo_email = zcl_ga_email=>create( ).
+
+  TRY.
+      " 3. Send using fluent API with document_type-html
+      lo_email->apply_body(
+          ip_body    = lv_html_body
+          ip_doctype = zcl_ga_email=>document_type-html " <-- Important: Set to HTM
+      )->apply_subject(
+          ip_subject = CONV #( p_t7_sub )
+      )->apply_receiver(
+          is_receiver = VALUE #( ad_smtpadr = CONV #( p_t7_rec ) )
+      )->send_mail(
+          i_via_dialog = p_t7_pop
+      ).
+    CATCH zcx_ga_util. " Handle generic generic GA exception
+  ENDTRY.
+
+  FREE lo_email.
 ENDFORM.
 
 " ==============================================================================

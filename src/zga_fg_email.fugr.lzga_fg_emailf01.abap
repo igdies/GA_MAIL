@@ -76,7 +76,6 @@ FORM f_read_html_body.
   IF go_body_html_view IS NOT BOUND.
     RETURN.
   ENDIF.
-  BREAK-POINT.
 *  call method go_body_html_edit
 ENDFORM.
 FORM f_read_text_body.
