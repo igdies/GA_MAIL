@@ -1,4 +1,4 @@
-# Technical Documentation: ZCL_GA_EMAIL Framework
+# ZCL_GA_EMAIL
 
 The `ZCL_GA_EMAIL` framework provides a standardized, fluent Object-Oriented API for constructing and sending emails in ABAP. It supports rich HTML/Text bodies, SAP SO10 texts, attachments, and integration with a UI dialog for user verification before sending.
 
