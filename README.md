@@ -193,6 +193,4 @@ CALL FUNCTION 'ZFM_EMAIL_DIALOG'
     i_as_popup = abap_true.
 ```
 
-```
 
----
