@@ -8,24 +8,26 @@ Developers can choose to use the framework directly or inherit from it to map sp
 
 ## Table of Contents
 
-1. #1-overview
-2. #2-basic-direct-usage-fluent-api
-   - #21-dialog-mode-i_via_dialog
-3. #3-architecture-and-inheritance-model
-4. #4-passing-context-data-to-subclasses
-   - #41-passing-struct-data-io_data
-   - #42-passing-object-context-io_object
-5. #5-real-world-implementation-zcl_qm_ncr_email
-   - #51-key-design-choices
-6. #6-function-module-integration
+1. [1. Overview](#1-overview)
+2. [2. Basic Direct Usage (Fluent API)](#2-basic-direct-usage-fluent-api)
+   - [2.1 Dialog Mode (i_via_dialog)](#21-dialog-mode-i_via_dialog)
+3. [3. Architecture and Inheritance Model](#3-architecture-and-inheritance-model)
+4. [4. Passing Context Data to Subclasses](#4-passing-context-data-to-subclasses)
+   - [4.1 Passing Struct Data (io_data)](#41-passing-struct-data-io_data)
+   - [4.2 Passing Object Context (io_object)](#42-passing-object-context-io_object)
+5. [5. Real-World Implementation: ZCL_QM_NCR_EMAIL](#5-real-world-implementation-zcl_qm_ncr_email)
+   - [5.1 Key Design Choices](#51-key-design-choices)
+6. [6. Function Module Integration](#6-function-module-integration)
 
----
 
 ## 1. Overview
 
 The `ZCL_GA_EMAIL` framework provides a standardized, fluent Object-Oriented API for constructing and sending emails in ABAP. It supports rich HTML/Text bodies, SAP SO10 texts, attachments, and integration with a UI dialog for user verification before sending.
 
 Developers can choose to use the framework directly or inherit from it to map specific business logic securely (Data Transfer Objects or context injection).
+
+> **Note/Acknowledgement:** Certain features and points in this framework were inspired by and reference the [ABAP-HTML-eMail](https://github.com/vidyadharg/ABAP-HTML-eMail) project.
+
 
 ---
 
@@ -192,5 +194,3 @@ CALL FUNCTION 'ZFM_EMAIL_DIALOG'
     io_mail    = lo_fm_email
     i_as_popup = abap_true.
 ```
-
-
