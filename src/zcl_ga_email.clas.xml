@@ -19,9 +19,74 @@
    </DESCRIPTIONS_CLASS>
    <DESCRIPTIONS>
     <SEOCOMPOTX>
+     <CMPNAME>APPLY_ATTACHMENT</CMPNAME>
+     <LANGU>S</LANGU>
+     <DESCRIPT>Add an attachment to the email state</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CMPNAME>APPLY_BODY</CMPNAME>
+     <LANGU>S</LANGU>
+     <DESCRIPT>Apply custom body content and document type</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CMPNAME>APPLY_BODY_SO10</CMPNAME>
+     <LANGU>S</LANGU>
+     <DESCRIPT>Apply SO10 standard text to mail body</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CMPNAME>APPLY_RECEIVER</CMPNAME>
+     <LANGU>S</LANGU>
+     <DESCRIPT>Add a single recipient</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CMPNAME>APPLY_SENDER</CMPNAME>
+     <LANGU>S</LANGU>
+     <DESCRIPT>Set sender of the email</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CMPNAME>APPLY_SEND_IMMEDIATELY</CMPNAME>
+     <LANGU>S</LANGU>
+     <DESCRIPT>Configure if email is sent immediately or queued</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CMPNAME>APPLY_SUBJECT_SO10</CMPNAME>
+     <LANGU>S</LANGU>
+     <DESCRIPT>Apply SO10 standard text to mail subject</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CMPNAME>APPLY_TEMPLATE</CMPNAME>
+     <LANGU>S</LANGU>
+     <DESCRIPT>Apply S/4HANA Email Template directly to mail state</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CMPNAME>APPLY_TEMPLATE_SMW0</CMPNAME>
+     <LANGU>S</LANGU>
+     <DESCRIPT>Apply HTML from SMW0 template directly to body</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CMPNAME>CONSTRUCTOR</CMPNAME>
+     <LANGU>S</LANGU>
+     <DESCRIPT>CONSTRUCTOR</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CMPNAME>GET_INSTANCE</CMPNAME>
+     <LANGU>S</LANGU>
+     <DESCRIPT>Factory method to get an instance of the email class</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
      <CMPNAME>IS_EMAILID_VALID</CMPNAME>
      <LANGU>S</LANGU>
      <DESCRIPT>validate email id</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CMPNAME>MS_MAIL</CMPNAME>
+     <LANGU>S</LANGU>
+     <DESCRIPT>Estructura del eMail</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CMPNAME>NORMALIZE_DOCTYPE</CMPNAME>
+     <LANGU>S</LANGU>
+     <DESCRIPT>Validate and normalize Document Type</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CMPNAME>REPLACE_PLACEHOLDER</CMPNAME>
@@ -29,6 +94,68 @@
      <DESCRIPT>Replace placeholder than CDS</DESCRIPT>
     </SEOCOMPOTX>
    </DESCRIPTIONS>
+   <DESCRIPTIONS_SUB>
+    <SEOSUBCOTX>
+     <CMPNAME>CONTENT_GET</CMPNAME>
+     <SCONAME>RS_MAIL</SCONAME>
+     <LANGU>S</LANGU>
+     <DESCRIPT>Estructura del eMail</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>CONTENT_SET</CMPNAME>
+     <SCONAME>IS_MAIL</SCONAME>
+     <LANGU>S</LANGU>
+     <DESCRIPT>Estructura del eMail</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>GET_EMAIL_FROM_USER</CMPNAME>
+     <SCONAME>I_USER</SCONAME>
+     <LANGU>S</LANGU>
+     <DESCRIPT>Usuario</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>GET_INSTANCE</CMPNAME>
+     <SCONAME>IO_DATA</SCONAME>
+     <LANGU>S</LANGU>
+     <DESCRIPT>Optional Data Reference</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>GET_INSTANCE</CMPNAME>
+     <SCONAME>IO_OBJECT</SCONAME>
+     <LANGU>S</LANGU>
+     <DESCRIPT>Optional Object Reference</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>GET_INSTANCE</CMPNAME>
+     <SCONAME>I_IMPLEMENTATION_CLASS</SCONAME>
+     <LANGU>S</LANGU>
+     <DESCRIPT>Target class for instantiation</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>XSTRING_TO_ATTACHMENT</CMPNAME>
+     <SCONAME>RS_ATTACHMENT</SCONAME>
+     <LANGU>S</LANGU>
+     <DESCRIPT>Estructua Emiail Attachemnt</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>XSTRING_TO_ATTACHMENT</CMPNAME>
+     <SCONAME>SIZE</SCONAME>
+     <LANGU>S</LANGU>
+     <DESCRIPT>Tamaño de contenido de doc.</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>XSTRING_TO_ATTACHMENT</CMPNAME>
+     <SCONAME>SUBJECT</SCONAME>
+     <LANGU>S</LANGU>
+     <DESCRIPT>Breve descripción del contenido</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>XSTRING_TO_ATTACHMENT</CMPNAME>
+     <SCONAME>TYPE</SCONAME>
+     <LANGU>S</LANGU>
+     <DESCRIPT>Sigla p.tipo de documento</DESCRIPT>
+    </SEOSUBCOTX>
+   </DESCRIPTIONS_SUB>
   </asx:values>
  </asx:abap>
 </abapGit>
