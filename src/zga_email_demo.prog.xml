@@ -412,6 +412,24 @@
       </item>
       <item>
        <ID>S</ID>
+       <KEY>P_T7HARD</KEY>
+       <ENTRY>HardCoded HTML</ENTRY>
+       <LENGTH>22</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>P_T7SMTG</KEY>
+       <ENTRY>SMTG eMail HTML</ENTRY>
+       <LENGTH>23</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>P_T7SMW0</KEY>
+       <ENTRY>SWM0 Template HTML</ENTRY>
+       <LENGTH>26</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
        <KEY>P_T7_POP</KEY>
        <ENTRY>Show Dialog (Popup)</ENTRY>
        <LENGTH>27</LENGTH>
@@ -427,6 +445,12 @@
        <KEY>P_T7_SUB</KEY>
        <ENTRY>Subject</ENTRY>
        <LENGTH>15</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>P_T7_TPL</KEY>
+       <ENTRY>Template</ENTRY>
+       <LENGTH>16</LENGTH>
       </item>
       <item>
        <ID>S</ID>

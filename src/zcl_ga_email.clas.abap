@@ -1,13 +1,13 @@
-class ZCL_GA_EMAIL definition
-  public
-  inheriting from CL_BCS_MESSAGE
-  create public .
+CLASS zcl_ga_email DEFINITION
+  PUBLIC
+  INHERITING FROM cl_bcs_message
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 
-  constants:
-    "! <p class="shorttext synchronized" lang="en"></p>
-    BEGIN OF document_type,
+    CONSTANTS:
+      "! <p class="shorttext synchronized" lang="en"></p>
+      BEGIN OF document_type,
         txt    TYPE so_obj_tp VALUE 'txt',
         binary TYPE so_obj_tp VALUE 'BIN',
         html   TYPE so_obj_tp VALUE 'HTM',
@@ -17,41 +17,41 @@ public section.
     " ==============================================================================
     " 1. INSTANTIATION
     " ==============================================================================
-  class-methods GET_DRIVER_CLASS
-    importing
-      !IP_APP type CSEQUENCE
-    returning
-      value(RO_DRIVER_CLASS_DEF) type ref to CL_ABAP_CLASSDESCR .
-  class-methods CREATE
-    importing
-      !IO_OBJECT type ref to OBJECT optional
-      !IO_DATA type ref to DATA optional
-      value(IP_APP) type CSEQUENCE optional
-      value(IP_SUBCLASS) type ref to CL_ABAP_TYPEDESCR optional
-    returning
-      value(RO_EMAIL) type ref to ZCL_GA_EMAIL .
+    CLASS-METHODS get_driver_class
+      IMPORTING
+        !ip_app                    TYPE csequence
+      RETURNING
+        VALUE(ro_driver_class_def) TYPE REF TO cl_abap_classdescr .
+    CLASS-METHODS create
+      IMPORTING
+        !io_object         TYPE REF TO object OPTIONAL
+        !io_data           TYPE REF TO data OPTIONAL
+        VALUE(ip_app)      TYPE csequence OPTIONAL
+        VALUE(ip_subclass) TYPE REF TO cl_abap_typedescr OPTIONAL
+      RETURNING
+        VALUE(ro_email)    TYPE REF TO zcl_ga_email .
     "! <p class="shorttext synchronized" lang="en">CONSTRUCTOR</p>
     "! @parameter io_object | <p class="shorttext synchronized" lang="en"></p>
     "! @parameter io_data | <p class="shorttext synchronized" lang="en"></p>
-  methods CONSTRUCTOR
-    importing
-      !IO_OBJECT type ref to OBJECT optional
-      !IO_DATA type ref to DATA optional .
+    METHODS constructor
+      IMPORTING
+        !io_object TYPE REF TO object OPTIONAL
+        !io_data   TYPE REF TO data OPTIONAL .
     " ==============================================================================
     " 2. CORE STATE MANAGEMENT (FINAL: Prevent breaking core mappings)
     " ==============================================================================
     "! <p class="shorttext synchronized" lang="en"></p>
     "! @returning rs_mail | <p class="shorttext synchronized" lang="en">Current Mail State</p>
-  methods CONTENT_GET
-  final
-    returning
-      value(RS_MAIL) type ZGA_S_EMAIL .
+    METHODS content_get
+          FINAL
+      RETURNING
+        VALUE(rs_mail) TYPE zga_s_email .
     "! <p class="shorttext synchronized" lang="en"></p>
     "! @parameter is_mail | <p class="shorttext synchronized" lang="en">Estructura del eMail</p>
-  methods CONTENT_SET
-  final
-    importing
-      !IS_MAIL type ZGA_S_EMAIL .
+    METHODS content_set
+          FINAL
+      IMPORTING
+        !is_mail TYPE zga_s_email .
     " ==============================================================================
     " 3. CONFIGURE PLACEHOLDERS (FINAL & FLUENT API for chaining)
     " ==============================================================================
@@ -59,34 +59,34 @@ public section.
     "! @parameter placeholder_name | <p class="shorttext synchronized" lang="en"></p>
     "! @parameter placeholder_value | <p class="shorttext synchronized" lang="en"></p>
     "! @returning ro_me | <p class="shorttext synchronized" lang="en">Returns self for method chaining</p>
-  methods SET_PLACEHOLDER
-  final
-    importing
-      !PLACEHOLDER_NAME type STRING
-      !PLACEHOLDER_VALUE type STRING
-    returning
-      value(RO_ME) type ref to ZCL_GA_EMAIL .
+    METHODS set_placeholder
+          FINAL
+      IMPORTING
+        !placeholder_name  TYPE string
+        !placeholder_value TYPE string
+      RETURNING
+        VALUE(ro_me)       TYPE REF TO zcl_ga_email .
     "! <p class="shorttext synchronized" lang="en"></p>
     "! @parameter placeholder_name | <p class="shorttext synchronized" lang="en"></p>
     "! @parameter placeholder_itab | <p class="shorttext synchronized" lang="en"></p>
     "! @returning ro_me | <p class="shorttext synchronized" lang="en">Returns self for method chaining</p>
-  methods SET_PLACEHOLDER_ITAB
-  final
-    importing
-      !PLACEHOLDER_NAME type STRING
-      !PLACEHOLDER_ITAB type ANY TABLE
-    returning
-      value(RO_ME) type ref to ZCL_GA_EMAIL .
+    METHODS set_placeholder_itab
+          FINAL
+      IMPORTING
+        !placeholder_name TYPE string
+        !placeholder_itab TYPE ANY TABLE
+      RETURNING
+        VALUE(ro_me)      TYPE REF TO zcl_ga_email .
     "! <p class="shorttext synchronized" lang="en"></p>
     "! @parameter dlinam | <p class="shorttext synchronized" lang="en"></p>
     "! @parameter copy | <p class="shorttext synchronized" lang="en"></p>
     "! @returning ro_me | <p class="shorttext synchronized" lang="en">Returns self for method chaining</p>
-  methods ADD_DL_RECIPIENTS
-    importing
-      !DLINAM type SO_DLI_NAM
-      !COPY type BCS_COPY optional
-    returning
-      value(RO_ME) type ref to ZCL_GA_EMAIL .
+    METHODS add_dl_recipients
+      IMPORTING
+        !dlinam      TYPE so_dli_nam
+        !copy        TYPE bcs_copy OPTIONAL
+      RETURNING
+        VALUE(ro_me) TYPE REF TO zcl_ga_email .
     " ==============================================================================
     " 4. TEMPLATES & CONTENT RETRIEVAL (OPEN: Allow subclasses to override)
     " ==============================================================================
@@ -97,25 +97,25 @@ public section.
     "! @parameter op_html | <p class="shorttext synchronized" lang="en"></p>
     "! @returning r_ok | <p class="shorttext synchronized" lang="en">True if successful</p>
     "! @raising zcx_ga_util | <p class="shorttext synchronized" lang="en"></p>
-  methods GET_TEMPLATE
-    importing
-      !IP_TPL type SMTG_TMPL_HDR-ID
-      !IP_LANGUAGE type BCS_LANGUAGE default SY-LANGU
-    exporting
-      !OP_SUBJECT type STRING
-      !OP_HTML type STRING
-    returning
-      value(R_OK) type ABAP_BOOL
-    raising
-      ZCX_GA_UTIL .
+    METHODS get_template
+      IMPORTING
+        !ip_tpl      TYPE smtg_tmpl_hdr-id
+        !ip_language TYPE bcs_language DEFAULT sy-langu
+      EXPORTING
+        !op_subject  TYPE string
+        !op_html     TYPE string
+      RETURNING
+        VALUE(r_ok)  TYPE abap_bool
+      RAISING
+        zcx_ga_util .
     "! <p class="shorttext synchronized" lang="en"></p>
     "! @parameter iv_template | <p class="shorttext synchronized" lang="en"></p>
     "! @returning rv_html | <p class="shorttext synchronized" lang="en">Resulting HTML String</p>
-  methods GET_TEMPLATE_SMW0
-    importing
-      !IV_TEMPLATE type SWWW_T_TEMPLATE_NAME
-    returning
-      value(RV_HTML) type STRING .
+    METHODS get_template_smw0
+      IMPORTING
+        !iv_template   TYPE swww_t_template_name
+      RETURNING
+        VALUE(rv_html) TYPE string .
     "! <p class="shorttext synchronized" lang="en"></p>
     "! @parameter ip_text_name | <p class="shorttext synchronized" lang="en"></p>
     "! @parameter ip_language | <p class="shorttext synchronized" lang="en"></p>
@@ -123,105 +123,105 @@ public section.
     "! @parameter ip_tdid | <p class="shorttext synchronized" lang="en"></p>
     "! @parameter ip_tdobject | <p class="shorttext synchronized" lang="en"></p>
     "! @returning r_contents_txt | <p class="shorttext synchronized" lang="en">String containing SO10 contents</p>
-  methods READ_SO10_TEXT
-    importing
-      !IP_TEXT_NAME type TDOBNAME
-      !IP_LANGUAGE type BCS_LANGUAGE default SY-LANGU
-      !IP_DOCTYPE type BCS_DOCTYPE default 'txt'
-      !IP_TDID type THEAD-TDID default 'ST'
-      !IP_TDOBJECT type THEAD-TDOBJECT default 'TEXT'
-    returning
-      value(R_CONTENTS_TXT) type STRING .
+    METHODS read_so10_text
+      IMPORTING
+        !ip_text_name         TYPE tdobname
+        !ip_language          TYPE bcs_language DEFAULT sy-langu
+        !ip_doctype           TYPE bcs_doctype DEFAULT 'txt'
+        !ip_tdid              TYPE thead-tdid DEFAULT 'ST'
+        !ip_tdobject          TYPE thead-tdobject DEFAULT 'TEXT'
+      RETURNING
+        VALUE(r_contents_txt) TYPE string .
     " ==============================================================================
     " 4B. APPLY TEMPLATES (FLUENT API for direct injection into ms_mail)
     " ==============================================================================
     "! <p class="shorttext synchronized" lang="en">Apply S/4HANA Email Template directly to mail state</p>
-  methods APPLY_TEMPLATE
-    importing
-      !IP_TPL type SMTG_TMPL_HDR-ID
-      !IP_LANGUAGE type BCS_LANGUAGE default SY-LANGU
-    returning
-      value(RO_ME) type ref to ZCL_GA_EMAIL
-    raising
-      ZCX_GA_UTIL .
+    METHODS apply_template
+      IMPORTING
+        !ip_tpl      TYPE smtg_tmpl_hdr-id
+        !ip_language TYPE bcs_language DEFAULT sy-langu
+      RETURNING
+        VALUE(ro_me) TYPE REF TO zcl_ga_email
+      RAISING
+        zcx_ga_util .
     "! <p class="shorttext synchronized" lang="en">Apply HTML from SMW0 template directly to body</p>
-  methods APPLY_TEMPLATE_SMW0
-    importing
-      !IV_TEMPLATE type SWWW_T_TEMPLATE_NAME
-    returning
-      value(RO_ME) type ref to ZCL_GA_EMAIL .
+    METHODS apply_template_smw0
+      IMPORTING
+        !iv_template TYPE swww_t_template_name
+      RETURNING
+        VALUE(ro_me) TYPE REF TO zcl_ga_email .
     "! <p class="shorttext synchronized" lang="en">Apply custom body content and document type</p>
-  methods APPLY_BODY
-    importing
-      !IP_BODY type STRING
-      !IP_DOCTYPE type SO_OBJ_TP default DOCUMENT_TYPE-TXT
-    returning
-      value(RO_ME) type ref to ZCL_GA_EMAIL .
+    METHODS apply_body
+      IMPORTING
+        !ip_body     TYPE string
+        !ip_doctype  TYPE so_obj_tp DEFAULT document_type-txt
+      RETURNING
+        VALUE(ro_me) TYPE REF TO zcl_ga_email .
     "! <p class="shorttext synchronized" lang="en">Apply SO10 standard text to mail body</p>
-  methods APPLY_BODY_SO10
-    importing
-      !IP_TEXT_NAME type TDOBNAME
-      !IP_LANGUAGE type BCS_LANGUAGE default SY-LANGU
-      !IP_DOCTYPE type BCS_DOCTYPE default 'txt'
-      !IP_TDID type THEAD-TDID default 'ST'
-      !IP_TDOBJECT type THEAD-TDOBJECT default 'TEXT'
-    returning
-      value(RO_ME) type ref to ZCL_GA_EMAIL .
+    METHODS apply_body_so10
+      IMPORTING
+        !ip_text_name TYPE tdobname
+        !ip_language  TYPE bcs_language DEFAULT sy-langu
+        !ip_doctype   TYPE bcs_doctype DEFAULT 'txt'
+        !ip_tdid      TYPE thead-tdid DEFAULT 'ST'
+        !ip_tdobject  TYPE thead-tdobject DEFAULT 'TEXT'
+      RETURNING
+        VALUE(ro_me)  TYPE REF TO zcl_ga_email .
     "! <p class="shorttext synchronized" lang="en">Apply SO10 standard text to mail subject</p>
-  methods APPLY_SUBJECT_SO10
-    importing
-      !IP_TEXT_NAME type TDOBNAME
-      !IP_LANGUAGE type BCS_LANGUAGE default SY-LANGU
-      !IP_TDID type THEAD-TDID default 'ST'
-      !IP_TDOBJECT type THEAD-TDOBJECT default 'TEXT'
-    returning
-      value(RO_ME) type ref to ZCL_GA_EMAIL .
+    METHODS apply_subject_so10
+      IMPORTING
+        !ip_text_name TYPE tdobname
+        !ip_language  TYPE bcs_language DEFAULT sy-langu
+        !ip_tdid      TYPE thead-tdid DEFAULT 'ST'
+        !ip_tdobject  TYPE thead-tdobject DEFAULT 'TEXT'
+      RETURNING
+        VALUE(ro_me)  TYPE REF TO zcl_ga_email .
     " ==============================================================================
     " 4C. FLUENT CONFIGURATION (OPEN: Allow subclasses to intercept/redefine)
     " ==============================================================================
-  methods APPLY_SUBJECT
-    importing
-      !IP_SUBJECT type CSEQUENCE
-    returning
-      value(RO_ME) type ref to ZCL_GA_EMAIL .
+    METHODS apply_subject
+      IMPORTING
+        !ip_subject  TYPE csequence
+      RETURNING
+        VALUE(ro_me) TYPE REF TO zcl_ga_email .
     "! <p class="shorttext synchronized" lang="en">Add a single recipient</p>
 *        !iv_email    TYPE ad_smtpadr
 *        !iv_copy     TYPE abap_bool DEFAULT abap_false
 *        !iv_blind    TYPE abap_bool DEFAULT abap_false
-  methods APPLY_RECEIVER
-    importing
-      !IS_RECEIVER type ZGA_S_EMAIL_RECEIVER
-    returning
-      value(RO_ME) type ref to ZCL_GA_EMAIL .
-  methods APPLY_RECEIVERS
-    importing
-      !IT_RECEIVERS type ZGA_T_EMAIL_RECEIVERS
-    returning
-      value(RO_ME) type ref to ZCL_GA_EMAIL .
+    METHODS apply_receiver
+      IMPORTING
+        !is_receiver TYPE zga_s_email_receiver
+      RETURNING
+        VALUE(ro_me) TYPE REF TO zcl_ga_email .
+    METHODS apply_receivers
+      IMPORTING
+        !it_receivers TYPE zga_t_email_receivers
+      RETURNING
+        VALUE(ro_me)  TYPE REF TO zcl_ga_email .
     "! <p class="shorttext synchronized" lang="en">Add an attachment to the email state</p>
-  methods APPLY_ATTACHMENT
-    importing
-      !IS_ATTACHMENT type ZGA_S_EMAIL_ATTACHMENT
-    returning
-      value(RO_ME) type ref to ZCL_GA_EMAIL .
-  methods APPLY_ATTACHMENTS
-    importing
-      !IT_ATTACHMENT type ZGA_T_EMAIL_ATTACHMENTS
-    returning
-      value(RO_ME) type ref to ZCL_GA_EMAIL .
+    METHODS apply_attachment
+      IMPORTING
+        !is_attachment TYPE zga_s_email_attachment
+      RETURNING
+        VALUE(ro_me)   TYPE REF TO zcl_ga_email .
+    METHODS apply_attachments
+      IMPORTING
+        !it_attachment TYPE zga_t_email_attachments
+      RETURNING
+        VALUE(ro_me)   TYPE REF TO zcl_ga_email .
     "! <p class="shorttext synchronized" lang="en">Set sender of the email</p>
-  methods APPLY_SENDER
-    importing
-      !IV_EMAIL type AD_SMTPADR optional
-      !IV_USER type SYUNAME optional
-    returning
-      value(RO_ME) type ref to ZCL_GA_EMAIL .
+    METHODS apply_sender
+      IMPORTING
+        !iv_email    TYPE ad_smtpadr OPTIONAL
+        !iv_user     TYPE syuname OPTIONAL
+      RETURNING
+        VALUE(ro_me) TYPE REF TO zcl_ga_email .
     "! <p class="shorttext synchronized" lang="en">Configure if email is sent immediately or queued</p>
-  methods APPLY_SEND_IMMEDIATELY
-    importing
-      !IV_IMMEDIATELY type ABAP_BOOL default ABAP_TRUE
-    returning
-      value(RO_ME) type ref to ZCL_GA_EMAIL .
+    METHODS apply_send_immediately
+      IMPORTING
+        !iv_immediately TYPE abap_bool DEFAULT abap_true
+      RETURNING
+        VALUE(ro_me)    TYPE REF TO zcl_ga_email .
     " ==============================================================================
     " 5. EXECUTION (FINAL: Prevent altering the SAP standard Send pipeline)
     " ==============================================================================
@@ -229,14 +229,14 @@ public section.
     "! @parameter i_via_dialog | <p class="shorttext synchronized" lang="en"></p>
     "! @returning r_ok | <p class="shorttext synchronized" lang="en">True if queued successfully</p>
     "! @raising zcx_ga_util | <p class="shorttext synchronized" lang="en"></p>
-  methods SEND_MAIL
-  final
-    importing
-      !I_VIA_DIALOG type ABAP_BOOL default ABAP_FALSE
-    returning
-      value(R_OK) type ABAP_BOOL
-    raising
-      ZCX_GA_UTIL .
+    METHODS send_mail
+          FINAL
+      IMPORTING
+        !i_via_dialog TYPE abap_bool DEFAULT abap_false
+      RETURNING
+        VALUE(r_ok)   TYPE abap_bool
+      RAISING
+        zcx_ga_util .
     " ==============================================================================
     " 6. UTILITIES (STATIC)
     " ==============================================================================
@@ -246,40 +246,40 @@ public section.
     "! @parameter subject | <p class="shorttext synchronized" lang="en">Breve descripción del contenido</p>
     "! @parameter size | <p class="shorttext synchronized" lang="en">Tamaño de contenido de doc.</p>
     "! @returning rs_attachment | <p class="shorttext synchronized" lang="en">Properly formatted attachment structure</p>
-  class-methods XSTRING_TO_ATTACHMENT
-    importing
-      !CONTENT type XSTRING
-      !TYPE type SO_OBJ_TP optional
-      !SUBJECT type SO_OBJ_DES
-      !SIZE type SO_OBJ_LEN optional
-    returning
-      value(RS_ATTACHMENT) type ZGA_S_EMAIL_ATTACHMENT .
+    CLASS-METHODS xstring_to_attachment
+      IMPORTING
+        !content             TYPE xstring
+        !type                TYPE so_obj_tp OPTIONAL
+        !subject             TYPE so_obj_des
+        !size                TYPE so_obj_len OPTIONAL
+      RETURNING
+        VALUE(rs_attachment) TYPE zga_s_email_attachment .
     "! <p class="shorttext synchronized" lang="en"></p>
     "! @parameter it_attachments | <p class="shorttext synchronized" lang="en"></p>
     "! @parameter i_zip_filename | <p class="shorttext synchronized" lang="en"></p>
     "! @returning rs_zip_attachment | <p class="shorttext synchronized" lang="en">Single compacted ZIP attachment structure</p>
-  class-methods ADD_ZIP_ATTACHMENTS
-    importing
-      !IT_ATTACHMENTS type ZGA_T_EMAIL_ATTACHMENTS
-      !I_ZIP_FILENAME type SO_OBJ_DES default 'archive.zip'
-    returning
-      value(RS_ZIP_ATTACHMENT) type ZGA_S_EMAIL_ATTACHMENT .
+    CLASS-METHODS add_zip_attachments
+      IMPORTING
+        !it_attachments          TYPE zga_t_email_attachments
+        !i_zip_filename          TYPE so_obj_des DEFAULT 'archive.zip'
+      RETURNING
+        VALUE(rs_zip_attachment) TYPE zga_s_email_attachment .
     "! <p class="shorttext synchronized" lang="en"></p>
     "! @parameter i_user | <p class="shorttext synchronized" lang="en">Usuario</p>
     "! @returning r_email | <p class="shorttext synchronized" lang="en">Resolved Email string</p>
-  class-methods GET_EMAIL_FROM_USER
-    importing
-      !I_USER type SYUNAME
-    returning
-      value(R_EMAIL) type STRING .
+    CLASS-METHODS get_email_from_user
+      IMPORTING
+        !i_user        TYPE syuname
+      RETURNING
+        VALUE(r_email) TYPE string .
     "! <p class="shorttext synchronized" lang="en">validate email id</p>
     "! @parameter emailid | <p class="shorttext synchronized" lang="en"></p>
     "! @returning is_emailid_valid | <p class="shorttext synchronized" lang="en">True if formatting is valid</p>
-  class-methods IS_EMAILID_VALID
-    importing
-      !EMAILID type AD_SMTPADR
-    returning
-      value(IS_EMAILID_VALID) type ABAP_BOOL .
+    CLASS-METHODS is_emailid_valid
+      IMPORTING
+        !emailid                TYPE ad_smtpadr
+      RETURNING
+        VALUE(is_emailid_valid) TYPE abap_bool .
   PROTECTED SECTION.
     " ==============================================================================
     " 1. CORE STATE DATA
@@ -362,7 +362,7 @@ ENDCLASS.
 
 
 
-CLASS ZCL_GA_EMAIL IMPLEMENTATION.
+CLASS zcl_ga_email IMPLEMENTATION.
 
 
   METHOD add_dl_recipients.
@@ -547,7 +547,9 @@ CLASS ZCL_GA_EMAIL IMPLEMENTATION.
                             op_html     = lv_html ).
 
     " Inject directly into the mail state
-    ms_mail-subject   = lv_subject.
+    IF lv_subject IS NOT INITIAL.
+      ms_mail-subject   = lv_subject.
+    ENDIF.
     ms_mail-body      = lv_html.
     ms_mail-body_type = document_type-html.
 
@@ -776,9 +778,11 @@ CLASS ZCL_GA_EMAIL IMPLEMENTATION.
 
         CATCH cx_smtg_email_common INTO DATA(lx_smtg).
           " Properly bubble up the exception so developers know rendering failed
-          RAISE EXCEPTION TYPE zcx_ga_util
-            EXPORTING
-              previous = lx_smtg.
+*          RAISE EXCEPTION TYPE zcx_ga_util
+*            EXPORTING
+*              previous = lx_smtg.
+          zcx_ga_util=>raise_text( iv_text = lx_smtg->get_text( ) ).
+
       ENDTRY.
 
       " 3. FALLBACK: If the template is NOT CDS-backed, the API won't resolve placeholders automatically.
@@ -800,20 +804,23 @@ CLASS ZCL_GA_EMAIL IMPLEMENTATION.
 
   METHOD get_template_smw0.
     DATA: lt_html TYPE STANDARD TABLE OF soli.
-
+    DATA: lt_merge_table TYPE  swww_t_merge_table.
     " Fetch the raw HTML template from SAP Web Repository (SMW0)
     CALL FUNCTION 'WWW_HTML_MERGER'
       EXPORTING
         template           = iv_template
       IMPORTING
         html_table         = lt_html
+      CHANGING
+        merge_table        = lt_merge_table
       EXCEPTIONS
         template_not_found = 1
         OTHERS             = 2.
 
     IF sy-subrc = 0.
       " Convert SOLI table to string format
-      rv_html = cl_bcs_convert=>txt_to_string( it_soli = lt_html ).
+
+      rv_html = cl_bcs_convert=>raw_to_string( it_soli = lt_html  ).
 
       " Replace any placeholders that were already configured via set_placeholder
       rv_html = replace_placeholder( rv_html ).
@@ -1042,6 +1049,7 @@ CLASS ZCL_GA_EMAIL IMPLEMENTATION.
     APPEND  VALUE #( name = placeholder_name
                      value = placeholder_value )
      TO gt_data_key.
+    ro_me = me.
   ENDMETHOD.
 
 
@@ -1052,6 +1060,7 @@ CLASS ZCL_GA_EMAIL IMPLEMENTATION.
       name  = placeholder_name
       value = NEW zcl_itab_to_html( )->convert( placeholder_itab )
     ) TO gt_data_key.
+    ro_me = me.
   ENDMETHOD.
 
 

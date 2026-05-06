@@ -4,6 +4,7 @@ CLASS zcl_ga_email_demo DEFINITION
   CREATE PUBLIC .
 
   PUBLIC SECTION.
+    constants c_email_address type ad_smtpadr value 'perico.menganito@xyz.abc'.
     METHODS create_and_send IMPORTING i_via_dialog TYPE abap_bool DEFAULT abap_false.
   PROTECTED SECTION.
   PRIVATE SECTION.

@@ -18,7 +18,9 @@ TYPES: BEGIN OF ty_s_mail_2,
          body    TYPE string,
        END OF ty_s_mail_2.
 
-
+CONSTANTS: c_tpl_smw0 TYPE w3objid VALUE 'ZGA_EMAIL_SMW0_TPL_DEMO',
+           c_tpl_smtg TYPE w3objid VALUE 'ZGA_EMAIL_SMTG_TPL_DEMO'
+           .
 " ==============================================================================
 " 2. CLASS DEFINITIONS
 " ==============================================================================
@@ -84,61 +86,71 @@ ENDCLASS.
 
 " --- Test 1 Parameters ---
 SELECTION-SCREEN BEGIN OF BLOCK b1 WITH FRAME TITLE TEXT-b01.
-  PARAMETERS: p_test1 TYPE abap_bool AS CHECKBOX DEFAULT space. " Global Class (no inputs needed)
+PARAMETERS: p_test1 TYPE abap_bool AS CHECKBOX DEFAULT space. " Global Class (no inputs needed)
 SELECTION-SCREEN END OF BLOCK b1.
 
 " --- Test 2 Parameters ---
 SELECTION-SCREEN BEGIN OF BLOCK b2 WITH FRAME TITLE TEXT-b02.
-  PARAMETERS: p_test2 TYPE abap_bool AS CHECKBOX DEFAULT space USER-COMMAND t2.
-  PARAMETERS: p_t2_sub TYPE char100 DEFAULT 'Testeando' LOWER CASE MODIF ID tg2,
-              p_t2_bod TYPE char100 DEFAULT 'Testing' LOWER CASE MODIF ID tg2,
-              p_t2_rec TYPE ad_smtpadr DEFAULT 'ignacio.diez@antolin.com' LOWER CASE MODIF ID tg2,
-              p_t2_pop TYPE abap_bool AS CHECKBOX DEFAULT 'X' MODIF ID tg2.
+PARAMETERS: p_test2 TYPE abap_bool AS CHECKBOX DEFAULT space USER-COMMAND t2.
+PARAMETERS: p_t2_sub TYPE char100 DEFAULT 'Testeando' LOWER CASE MODIF ID tg2,
+            p_t2_bod TYPE char100 DEFAULT 'Testing' LOWER CASE MODIF ID tg2,
+            p_t2_rec TYPE ad_smtpadr DEFAULT zcl_ga_email_demo=>c_email_address LOWER CASE MODIF ID tg2,
+            p_t2_pop TYPE abap_bool AS CHECKBOX DEFAULT 'X' MODIF ID tg2.
 SELECTION-SCREEN END OF BLOCK b2.
 
 " --- Test 3 Parameters ---
 SELECTION-SCREEN BEGIN OF BLOCK b3 WITH FRAME TITLE TEXT-b03.
-  PARAMETERS: p_test3 TYPE abap_bool AS CHECKBOX DEFAULT space USER-COMMAND t3.
-  PARAMETERS: p_t3_sub TYPE char100 DEFAULT 'Asunto Mail Data' LOWER CASE MODIF ID tg3,
-              p_t3_bod TYPE char100 DEFAULT 'Cuerpo Mail Data' LOWER CASE MODIF ID tg3,
-              p_t3_rec TYPE ad_smtpadr DEFAULT 'ignacio.diez@antolin.com' LOWER CASE MODIF ID tg3,
-              p_t3_pop TYPE abap_bool AS CHECKBOX DEFAULT 'X' MODIF ID tg3.
+PARAMETERS: p_test3 TYPE abap_bool AS CHECKBOX DEFAULT space USER-COMMAND t3.
+PARAMETERS: p_t3_sub TYPE char100 DEFAULT 'Asunto Mail Data' LOWER CASE MODIF ID tg3,
+            p_t3_bod TYPE char100 DEFAULT 'Cuerpo Mail Data' LOWER CASE MODIF ID tg3,
+            p_t3_rec TYPE ad_smtpadr DEFAULT zcl_ga_email_demo=>c_email_address LOWER CASE MODIF ID tg3,
+            p_t3_pop TYPE abap_bool AS CHECKBOX DEFAULT 'X' MODIF ID tg3.
 SELECTION-SCREEN END OF BLOCK b3.
 
 " --- Test 4 Parameters ---
 SELECTION-SCREEN BEGIN OF BLOCK b4 WITH FRAME TITLE TEXT-b04.
-  PARAMETERS: p_test4 TYPE abap_bool AS CHECKBOX DEFAULT space USER-COMMAND t4.
-  PARAMETERS: p_t4_sub TYPE char100 DEFAULT 'Asunto Mail 3 (from Object)' LOWER CASE MODIF ID tg4,
-              p_t4_bod TYPE char100 DEFAULT 'This body is provided by a local class instance...' LOWER CASE MODIF ID tg4,
-              p_t4_rec TYPE ad_smtpadr DEFAULT 'ignacio.diez@antolin.com' LOWER CASE MODIF ID tg4,
-              p_t4_pop TYPE abap_bool AS CHECKBOX DEFAULT 'X' MODIF ID tg4.
+PARAMETERS: p_test4 TYPE abap_bool AS CHECKBOX DEFAULT space USER-COMMAND t4.
+PARAMETERS: p_t4_sub TYPE char100 DEFAULT 'Asunto Mail 3 (from Object)' LOWER CASE MODIF ID tg4,
+            p_t4_bod TYPE char100 DEFAULT 'This body is provided by a local class instance...' LOWER CASE MODIF ID tg4,
+            p_t4_rec TYPE ad_smtpadr DEFAULT zcl_ga_email_demo=>c_email_address LOWER CASE MODIF ID tg4,
+            p_t4_pop TYPE abap_bool AS CHECKBOX DEFAULT 'X' MODIF ID tg4.
 SELECTION-SCREEN END OF BLOCK b4.
 
 " --- Test 5 Parameters ---
 SELECTION-SCREEN BEGIN OF BLOCK b5 WITH FRAME TITLE TEXT-b05.
-  PARAMETERS: p_test5 TYPE abap_bool AS CHECKBOX DEFAULT space USER-COMMAND t5.
-  PARAMETERS: p_t5_sub TYPE char100 DEFAULT 'Subject directly from zcl_ga_email' LOWER CASE MODIF ID tg5,
-              p_t5_bod TYPE char100 DEFAULT 'This is a message body created directly using zcl_ga_email' LOWER CASE MODIF ID tg5,
-              p_t5_rec TYPE ad_smtpadr DEFAULT 'ignacio.diez@antolin.com' LOWER CASE MODIF ID tg5,
-              p_t5_pop TYPE abap_bool AS CHECKBOX DEFAULT 'X' MODIF ID tg5.
+PARAMETERS: p_test5 TYPE abap_bool AS CHECKBOX DEFAULT space USER-COMMAND t5.
+PARAMETERS: p_t5_sub TYPE char100 DEFAULT 'Subject directly from zcl_ga_email' LOWER CASE MODIF ID tg5,
+            p_t5_bod TYPE char100 DEFAULT 'This is a message body created directly using zcl_ga_email' LOWER CASE MODIF ID tg5,
+            p_t5_rec TYPE ad_smtpadr DEFAULT zcl_ga_email_demo=>c_email_address LOWER CASE MODIF ID tg5,
+            p_t5_pop TYPE abap_bool AS CHECKBOX DEFAULT 'X' MODIF ID tg5.
 SELECTION-SCREEN END OF BLOCK b5.
 
 " --- Test 6 Parameters ---
 SELECTION-SCREEN BEGIN OF BLOCK b6 WITH FRAME TITLE TEXT-b06.
-  PARAMETERS: p_test6 TYPE abap_bool AS CHECKBOX DEFAULT space USER-COMMAND t6.
-  PARAMETERS: p_t6_sub TYPE char100 DEFAULT 'Subject for ZFM_EMAIL_DIALOG' LOWER CASE MODIF ID tg6,
-              p_t6_bod TYPE char100 DEFAULT 'Body provided for Function Module Call' LOWER CASE MODIF ID tg6,
-              p_t6_rec TYPE ad_smtpadr DEFAULT 'ignacio.diez@antolin.com' LOWER CASE MODIF ID tg6,
-              p_t6_pop TYPE abap_bool AS CHECKBOX DEFAULT 'X' MODIF ID tg6.
+PARAMETERS: p_test6 TYPE abap_bool AS CHECKBOX DEFAULT space USER-COMMAND t6.
+PARAMETERS: p_t6_sub TYPE char100 DEFAULT 'Subject for ZFM_EMAIL_DIALOG' LOWER CASE MODIF ID tg6,
+            p_t6_bod TYPE char100 DEFAULT 'Body provided for Function Module Call' LOWER CASE MODIF ID tg6,
+            p_t6_rec TYPE ad_smtpadr DEFAULT zcl_ga_email_demo=>c_email_address LOWER CASE MODIF ID tg6,
+            p_t6_pop TYPE abap_bool AS CHECKBOX DEFAULT 'X' MODIF ID tg6.
 SELECTION-SCREEN END OF BLOCK b6.
 
 " --- Test 7 Parameters ---
+" --- Test 7 Parameters ---
 SELECTION-SCREEN BEGIN OF BLOCK b7 WITH FRAME TITLE TEXT-b07.
-  PARAMETERS: p_test7 TYPE abap_bool AS CHECKBOX DEFAULT space USER-COMMAND t7.
-  PARAMETERS: p_t7_sub TYPE char100 DEFAULT 'HTML Example Subject' LOWER CASE MODIF ID tg7,
-              p_t7_rec TYPE ad_smtpadr DEFAULT 'ignacio.diez@antolin.com' LOWER CASE MODIF ID tg7,
-              p_t7_pop TYPE abap_bool AS CHECKBOX DEFAULT 'X' MODIF ID tg7.
+PARAMETERS: p_test7 TYPE abap_bool AS CHECKBOX DEFAULT space USER-COMMAND t7.
+PARAMETERS: p_t7_sub TYPE char100 DEFAULT 'HTML Example Subject' LOWER CASE MODIF ID tg7,
+            p_t7_rec TYPE ad_smtpadr DEFAULT zcl_ga_email_demo=>c_email_address LOWER CASE MODIF ID tg7,
+            p_t7_pop TYPE abap_bool AS CHECKBOX DEFAULT 'X' MODIF ID tg7.
+
+" HTML Options
+PARAMETERS: p_t7hard RADIOBUTTON GROUP grp7 DEFAULT 'X' USER-COMMAND ugrp7 MODIF ID tg7, " Hardcoded
+            p_t7smw0 RADIOBUTTON GROUP grp7 MODIF ID tg7,                                " SMW0
+            p_t7smtg RADIOBUTTON GROUP grp7 MODIF ID tg7.                                " SMTG_TMPL_HDR
+
+" Dynamic template parameter (hidden for hardcoded)
+PARAMETERS: p_t7_tpl TYPE w3objid MODIF ID tp7.
 SELECTION-SCREEN END OF BLOCK b7.
+
 
 
 " ==============================================================================
@@ -196,7 +208,7 @@ AT SELECTION-SCREEN OUTPUT.
       ENDIF.
       MODIFY SCREEN.
     ENDIF.
-    " Dynamic visibility for Test 6
+    " Dynamic visibility for Test 7 (Main fields and Radiobuttons)
     IF screen-group1 = 'TG7'.
       IF p_test7 = abap_true.
         screen-active = 1.
@@ -205,13 +217,51 @@ AT SELECTION-SCREEN OUTPUT.
       ENDIF.
       MODIFY SCREEN.
     ENDIF.
+
+    " Dynamic visibility for the Test 7 Template Parameter
+    IF screen-group1 = 'TP7'.
+      IF p_test7 = abap_true AND p_t7hard = abap_false.
+        " Show if Test 7 is active AND we are NOT using hardcoded HTML
+        screen-active = 1.
+
+        " --- NEW: Auto-populate if empty when shown ---
+        IF p_t7_tpl IS INITIAL.
+          IF p_t7smw0 = abap_true.
+            p_t7_tpl = c_tpl_smtg.
+          ELSEIF p_t7smtg = abap_true.
+            p_t7_tpl = c_tpl_smw0.
+          ENDIF.
+        ENDIF.
+        " ----------------------------------------------
+
+      ELSE.
+        screen-active = 0.
+      ENDIF.
+      MODIFY SCREEN.
+    ENDIF.
+
+
   ENDLOOP.
 
+*----------------------------------------------------------------------*
+* AT SELECTION-SCREEN (Handle User Actions)
+*----------------------------------------------------------------------*
+AT SELECTION-SCREEN.
+  " React to the radiobutton group click
+  IF sy-ucomm = 'UGRP7'.
+    IF p_t7smw0 = abap_true.
+      p_t7_tpl = 'ZGA_EMAIL_SMW0_TPL_DEMO'.
+    ELSEIF p_t7smtg = abap_true.
+      p_t7_tpl = 'ZGA_EMAIL_SMTG_TPL_DEMO'.
+    ELSE.
+      CLEAR p_t7_tpl. " Hardcoded is selected
+    ENDIF.
+  ENDIF.
 
 
-" ==============================================================================
-" 5. MAIN EXECUTABLE (START-OF-SELECTION)
-" ==============================================================================
+  " ==============================================================================
+  " 5. MAIN EXECUTABLE (START-OF-SELECTION)
+  " ==============================================================================
 
 START-OF-SELECTION.
 
@@ -243,9 +293,9 @@ START-OF-SELECTION.
   ENDIF.
 
 
-" ==============================================================================
-" 6. SUBROUTINES FOR TESTS
-" ==============================================================================
+  " ==============================================================================
+  " 6. SUBROUTINES FOR TESTS
+  " ==============================================================================
 
 *&---------------------------------------------------------------------*
 *& Form test_1_global_class
@@ -345,12 +395,12 @@ FORM test_5_direct_usage.
   TRY.
       " Standard fluent API usage directly on the base framework class
       lo_direct_email->apply_body(
-          ip_body    = conv #( p_t5_bod )
+          ip_body    = CONV #( p_t5_bod )
           ip_doctype = zcl_ga_email=>document_type-txt
       )->apply_subject(
-          ip_subject = conv #( p_t5_sub )"'Subject directly from zcl_ga_email'
+          ip_subject = CONV #( p_t5_sub )"'Subject directly from zcl_ga_email'
       )->apply_receiver(
-          is_receiver = VALUE #( ad_smtpadr = conv #( p_t5_rec ) )
+          is_receiver = VALUE #( ad_smtpadr = CONV #( p_t5_rec ) )
       )->send_mail(
           i_via_dialog = p_t5_pop
       ).
@@ -374,12 +424,12 @@ FORM test_6_function_module.
   lo_fm_email = zcl_ga_email=>create( ).
   TRY.
       lo_fm_email->apply_body(
-          ip_body    = conv #( p_t6_bod )
+          ip_body    = CONV #( p_t6_bod )
           ip_doctype = zcl_ga_email=>document_type-txt
       )->apply_subject(
-          ip_subject = conv #( p_t6_sub )
+          ip_subject = CONV #( p_t6_sub )
       )->apply_receiver(
-          is_receiver = VALUE #( ad_smtpadr = conv #( p_t6_rec ) )
+          is_receiver = VALUE #( ad_smtpadr = CONV #( p_t6_rec ) )
       ).
     CATCH zcx_ga_util.
   ENDTRY.
@@ -402,48 +452,108 @@ ENDFORM.
 FORM test_7_html_body.
   DATA lo_email TYPE REF TO zcl_ga_email.
   DATA lv_html_body TYPE string.
-
-  " 1. Construct your HTML string
-  lv_html_body = |<html>| &
-                 |<head>| &
-                 |<style>| &
-                 |  body \{ font-family: Arial, sans-serif; color: #333; \}| &
-                 |  .highlight \{ color: #0056b3; font-weight: bold; \}| &
-                 |</style>| &
-                 |</head>| &
-                 |<body>| &
-                 |  <h2>Automated System Notification</h2>| &
-                 |  <p>Hello,</p>| &
-                 |  <p>This is an example of an <span class="highlight">HTML formatted email</span> sent via ZCL_GA_EMAIL.</p>| &
-                 |  <ul>| &
-                 |    <li>Supports CSS styling</li>| &
-                 |    <li>Supports structured lists</li>| &
-                 |    <li>Can embed tables and links</li>| &
-                 |  </ul>| &
-                 |  <p>Best regards,<br><b>ABAP Development Team</b></p>| &
-                 |</body>| &
-                 |</html>|.
-
-  " 2. Instantiate Base Class
+  TYPES: BEGIN OF ty_s_table,
+           col1 TYPE string,
+           col2 TYPE string,
+           col3 TYPE string,
+           col4 TYPE string,
+         END OF ty_s_table.
+  DATA lt_example TYPE TABLE OF ty_s_table.
+  lt_example = VALUE #(
+    ( col1 = 'R1 C1' col2 = 'R1 C2' col3 = 'R1 C3' col4 = 'R1 C4' )
+    ( col1 = 'R2 C1' col2 = 'R2 C2' col3 = 'R2 C3' col4 = 'R2 C4' )
+    ( col1 = 'R3 C1' col2 = 'R3 C2' col3 = 'R3 C3' col4 = 'R3 C4' )
+    ( col1 = 'R4 C1' col2 = 'R4 C2' col3 = 'R4 C3' col4 = 'R4 C4' )
+  ).
+  " Instantiate Base Class
   lo_email = zcl_ga_email=>create( ).
 
   TRY.
-      " 3. Send using fluent API with document_type-html
-      lo_email->apply_body(
-          ip_body    = lv_html_body
-          ip_doctype = zcl_ga_email=>document_type-html " <-- Important: Set to HTM
-      )->apply_subject(
+      " Standard configurations for all Test 7 cases
+      lo_email->apply_subject(
           ip_subject = CONV #( p_t7_sub )
       )->apply_receiver(
           is_receiver = VALUE #( ad_smtpadr = CONV #( p_t7_rec ) )
-      )->send_mail(
-          i_via_dialog = p_t7_pop
       ).
-    CATCH zcx_ga_util. " Handle generic generic GA exception
+
+      " Apply body based on selected Radiobutton
+      IF p_t7hard = abap_true.
+        " 1. Hardcoded HTML string
+        lv_html_body = |<html><head><style>| &
+                       | body \{ font-family: Arial, sans-serif; \}| &
+                       | .highlight \{ color: #0056b3; font-weight: bold; \}| &
+                       |</style></head><body>| &
+                       | <h2>Automated Notification</h2>| &
+                       | <p>This is an example of an <span class="highlight">HTML formatted email</span>.</p>| &
+                       |</body></html>|.
+        lo_email->apply_body(
+            ip_body    = lv_html_body
+            ip_doctype = zcl_ga_email=>document_type-html
+        ).
+
+      ELSEIF p_t7smw0 = abap_true.
+        " 2. SMW0 HTML Template
+        IF p_t7_tpl = c_tpl_smw0.
+          "SMW0 html should have these place holders
+          lo_email->set_placeholder(
+            EXPORTING
+              placeholder_name  = '&COMPANY_NAME&'
+              placeholder_value = 'Abap and Co.'
+**          RECEIVING
+**            ro_me             =
+          )->set_placeholder(
+              placeholder_name  = '&USER_NAME&'
+              placeholder_value = CONV #( sy-uname )
+          )->set_placeholder(
+              placeholder_name  = '&BODY_TEXT&'
+              placeholder_value = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' &&
+                                  'Proin venenatis urna turpis, vel congue purus malesuada vitae.' &&
+                                  'In varius dui odio. Vestibulum non urna quam.' &&
+                                  'Aliquam ut bibendum ex, ornare lacinia augue. ' &&
+                                  'Mauris tempus, orci a luctus luctus, felis est hendrerit erat, ac pellentesque justo ex id nibh.' &&
+                                  'Mauris scelerisque nisl tincidunt lacus volutpat, sed pellentesque tortor tristique.' &&
+                                  'Quisque eget mattis nisl, in euismod ligula.' &&
+                                  'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.' &&
+                                  'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.' &&
+                                  'Donec a odio pulvinar, lacinia mi id, imperdiet augue.'
+          )->set_placeholder_itab(
+            EXPORTING
+              placeholder_name = '&ITAB_DATATABLE&'
+              placeholder_itab = lt_example
+          )..
+        ENDIF.
+        lo_email->apply_template_smw0( iv_template = p_t7_tpl ).
+
+      ELSEIF p_t7smtg = abap_true.
+        " 3. SMTG S/4HANA Email Template
+        IF p_t7_tpl = c_tpl_smtg.
+          lo_email->set_placeholder(
+            EXPORTING
+              placeholder_name  = '&USER_FIRST_NAME&'
+              placeholder_value = 'Controlleti'
+*              RECEIVING
+*                ro_me             =
+          )->set_placeholder_itab(
+            EXPORTING
+              placeholder_name = '&SFLIGHT_TAB&'
+              placeholder_itab = lt_example
+*              RECEIVING
+*                ro_me            =
+          )..
+        ENDIF.
+        lo_email->apply_template( ip_tpl = CONV #( p_t7_tpl ) ).
+      ENDIF.
+
+      " Dispatch Mail
+      lo_email->send_mail( i_via_dialog = p_t7_pop ).
+
+    CATCH zcx_ga_util INTO DATA(lx_ex). " Handle generic GA exception
+      MESSAGE lx_ex->get_text( ) TYPE 'E'.
   ENDTRY.
 
   FREE lo_email.
 ENDFORM.
+
 
 " ==============================================================================
 " 3. CLASS IMPLEMENTATIONS
@@ -490,7 +600,7 @@ CLASS lcl_email_data IMPLEMENTATION.
 *          RECEIVING
 *            ro_me      =
         )->apply_subject( ip_subject =  CONV #( my_data-subject )
-        )->apply_receiver( is_receiver = VALUE #( ad_smtpadr = 'ignacio.diez@antolin.com')
+        )->apply_receiver( is_receiver = VALUE #( ad_smtpadr = c_email_address )
         )->send_mail(
             i_via_dialog = i_via_dialog
         ).
